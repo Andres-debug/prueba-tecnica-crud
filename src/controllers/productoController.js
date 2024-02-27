@@ -1,18 +1,17 @@
 import { pool } from "../db.js"; 
 
 export const renderProductos = async (req, res) => {
-    const [rows] = await pool.query("SELECT * FROM productos");
-    res.render("productos", { productos: rows });
-  };
+  try {
+    const [productosRows] = await pool.query("SELECT * FROM productos");
+    res.render("productos", { productos: productosRows });
+  } catch (error) {
+    res.status(500).json({ message: "Error al renderizar los productos", error });
+  }
+};
 
 export const createProducto = async (req, res) => {
-  const { nombre, descripcion, precio } = req.body;
-  try {
-    const result = await pool.query("INSERT INTO productos (nombre, descripcion, precio) VALUES (?, ?, ?)", [nombre, descripcion, precio]);
-    res.status(201).json({ message: "Producto creado", id: result.insertId });
-  } catch (error) {
-    res.status(500).json({ message: "Error al crear el producto", error });
-  }
+  const newProduct = req.body;
+    await pool.query("INSERT INTO productos set ?", [newProduct]);
 };
 
 

@@ -9,11 +9,16 @@ import {
 import {
     createGrupos,
     deleteGrupo,
-    editGrupo,
     renderGrupos,
-    getGrupos,
     updateGrupo,
   } from "../controllers/grupoController.js";
+
+  import {
+    createProducto,
+    deleteProducto,
+    renderProductos,
+    updateProducto
+  } from "../controllers/productoController.js"
   
 const router = Router();
 
@@ -23,10 +28,13 @@ router.get("/update/:id", editCustomer);
 router.post("/update/:id", updateCustomer);
 router.get("/delete/:id", deleteCustomer);
 router.post("/grupos/add", createGrupos);
-router.get("/grupos/update/:id", editGrupo);
 router.post("/grupos/update/:id", updateGrupo);
 router.get("/grupos/delete/:id", deleteGrupo);
 router.get("/grupos",renderGrupos);
+router.post("/productos/add", createProducto);
+router.post("/productos/update/:id", updateProducto);
+router.get("/productos/delete/:id", deleteProducto);
+router.get("/productos",renderProductos);
 
 
 

@@ -4,16 +4,14 @@ export const renderGrupos = async (req, res) => {
     try {
       const [gruposRows] = await pool.query("SELECT * FROM grupos");
       res.render("grupos", { grupos: gruposRows });
-      res.redirect("/grupos")
     } catch (error) {
       res.status(500).json({ message: "Error al renderizar los grupos", error });
     }
-  };
+};
 
 export const createGrupos = async (req, res) => {
   const newGroup = req.body;
     await pool.query("INSERT INTO grupos set ?", [newGroup]);
-    res.redirect("/")
 };
 
 export const getGrupos = async (req, res) => {
