@@ -11,6 +11,7 @@ import {
     deleteGrupo,
     editGrupo,
     renderGrupos,
+    getGrupos,
     updateGrupo,
   } from "../controllers/grupoController.js";
   
@@ -21,10 +22,12 @@ router.post("/add", createCustomers);
 router.get("/update/:id", editCustomer);
 router.post("/update/:id", updateCustomer);
 router.get("/delete/:id", deleteCustomer);
-router.get("/", renderGrupos);
 router.post("/grupos/add", createGrupos);
 router.get("/grupos/update/:id", editGrupo);
 router.post("/grupos/update/:id", updateGrupo);
 router.get("/grupos/delete/:id", deleteGrupo);
+router.get("/grupos",renderGrupos);
+
+
 
 export default router;

@@ -1,23 +1,21 @@
-import { pool } from "../db.js"; // Asegúrate de que esta ruta sea correcta
-
+import { pool } from "../db.js"; 
 
 export const renderGrupos = async (req, res) => {
-    const [rows] = await pool.query("SELECT * FROM grupos");
-    res.render("grupos", { grupos: rows });
+    try {
+      const [gruposRows] = await pool.query("SELECT * FROM grupos");
+      res.render("grupos", { grupos: gruposRows });
+      res.redirect("/grupos")
+    } catch (error) {
+      res.status(500).json({ message: "Error al renderizar los grupos", error });
+    }
   };
 
-// Crear un grupo
-export const createGrupo = async (req, res) => {
-  const { nombre, descripcion } = req.body;
-  try {
-    const result = await pool.query("INSERT INTO grupos (nombre, descripcion) VALUES (?, ?)", [nombre, descripcion]);
-    res.status(201).json({ message: "Grupo creado", id: result.insertId });
-  } catch (error) {
-    res.status(500).json({ message: "Error al crear el grupo", error });
-  }
+export const createGrupos = async (req, res) => {
+  const newGroup = req.body;
+    await pool.query("INSERT INTO grupos set ?", [newGroup]);
+    res.redirect("/")
 };
 
-// Leer todos los grupos
 export const getGrupos = async (req, res) => {
   try {
     const [rows] = await pool.query("SELECT * FROM grupos");

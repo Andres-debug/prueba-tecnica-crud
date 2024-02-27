@@ -1,12 +1,10 @@
 import { pool } from "../db.js";
 
 export const renderCustomers = async (req, res) => {
-  const [customersRows] = await pool.query("SELECT * FROM customer");
-  const [gruposRows] = await pool.query("SELECT * FROM grupos");
-  const [productosRows] = await pool.query("SELECT * FROM productos");
-
-  res.render("customers", { customers: customersRows, grupos: gruposRows, productos: productosRows });
+  const [rows] = await pool.query("SELECT * FROM customer");
+  res.render("customers", { customers: rows });
 };
+
 export const createCustomers = async (req, res) => {
   const newCustomer = req.body;
   await pool.query("INSERT INTO customer set ?", [newCustomer]);
